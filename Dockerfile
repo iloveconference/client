@@ -3,7 +3,7 @@ FROM node:18-alpine as build
 RUN npm install -g pnpm
 
 WORKDIR /app
-COPY package.json pnpm-lock.yaml ./
+COPY package.json pnpm-lock.yaml svelte.config.js ./
 RUN pnpm install --frozen-lockfile
 
 COPY . .
