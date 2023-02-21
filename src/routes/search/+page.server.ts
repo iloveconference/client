@@ -1,4 +1,4 @@
-import { SERVER_HOST } from '$env/static/private'
+import { env } from '$env/dynamic/private'
 import type { PageServerLoad } from './$types';
 
 export const load : PageServerLoad = async ({ fetch, url }) => {
@@ -8,7 +8,7 @@ export const load : PageServerLoad = async ({ fetch, url }) => {
         return {q: '', results: []}
     }
 
-    const requestUrl = `${SERVER_HOST}/search?q=${encodeURIComponent(q)}`
+    const requestUrl = `${env.SERVER_HOST}/search?q=${encodeURIComponent(q)}`
     console.log('requestUrl=', requestUrl)
     const res = await fetch(requestUrl)
     return res.json()
