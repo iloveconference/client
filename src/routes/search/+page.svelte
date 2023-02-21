@@ -15,7 +15,7 @@
 <h4>Results</h4>
 {#each data.results as result}
 	<div>
-		<a href="">{result.title}</a><br />
+		<a href="/">{result.title}</a><br />
 		<p>{result.text}</p>
 	</div>
 {/each}
