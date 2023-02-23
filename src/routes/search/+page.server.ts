@@ -27,17 +27,17 @@ export const load : PageServerLoad = async (event) => {
         return {q: '', results: []}
     }
 
-    // get ip
-    let ip = event.getClientAddress();
-    const xForwardedFor = event.request.headers.get('x-forwarded-for')
-    if (xForwardedFor) {
-        const ips = xForwardedFor.split(',')
-        // real ip is second-to-last if there are multiple because we have one proxy
-        ip = (ips.length > 1 ? ips[ips.length-2] : ips[0]).trim()
-        console.log('ip', ip, 'x-forwarded-for', xForwardedFor, 'ips', ips)
-    }
-
     if (!dev) {
+        // get real ip
+        let ip
+        const xForwardedFor = event.request.headers.get('x-forwarded-for')
+        if (!xForwardedFor) {
+            ip = event.getClientAddress()
+        } else {
+            const ips = xForwardedFor.split(',')
+            // real ip is second-to-last if there are multiple because we have one proxy
+            ip = (ips.length > 1 ? ips[ips.length-2] : ips[0]).trim()
+        }
         // rate limit
         const rateLimitAttempt = await ratelimit.limit(ip);
         if (!rateLimitAttempt.success) {
@@ -54,11 +54,7 @@ export const load : PageServerLoad = async (event) => {
     }
 
     const requestUrl = `${env.SERVER_HOST}/search?q=${encodeURIComponent(q)}`
-    console.log('requestUrl=', requestUrl)
-    // const res = await event.fetch(requestUrl)
-    const results = Array.from(event.request.headers.entries(), ([key, value]) => { 
-        return {"title": key, "text": value} 
-    })
-    return { "answer": ip, "results": results }
-    // return res.json()
+    console.log('requestUrl=', requestUrl, 'building=', building, 'dev=', dev)
+    const res = await event.fetch(requestUrl)
+    return res.json()
 }
