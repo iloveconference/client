@@ -44,6 +44,8 @@ export const load : PageServerLoad = async (event) => {
 
     const requestUrl = `${env.SERVER_HOST}/search?q=${encodeURIComponent(q)}`
     console.log('requestUrl=', requestUrl)
-    const res = await event.fetch(requestUrl)
-    return res.json()
+    // const res = await event.fetch(requestUrl)
+    const results = Array.from(event.request.headers.entries(), ([key, value]) => { return {"title": key, "text": value} })
+    return { "answer": ip, "results": results }
+    // return res.json()
 }
