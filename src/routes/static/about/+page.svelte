@@ -24,7 +24,7 @@
 	<li>
 		If you would like to see the search results improved, please click on the thumbs-up and
 		thumbs-down buttons under the computer-generated answer and each of the search results. Your
-		feedback can be used to help improve the search result ranking and query generation algorithms.
+		feedback will be used to help improve the search result ranking and query generation algorithms.
 	</li>
 	<li>
 		If you have ideas for new features, please let me know. I will add them to the feature backlog
