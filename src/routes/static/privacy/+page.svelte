@@ -7,7 +7,7 @@
 
 <h5 class="header">Privacy Policy</h5>
 
-<p>Last updated: April 13, 2023</p>
+<p>Last updated: April 18, 2023</p>
 <p>
 	This Privacy Policy describes Our policies and procedures on the collection, use and disclosure of
 	Your information when You use the Service and tells You about Your privacy rights and how the law
@@ -108,16 +108,22 @@
 <p>
 	We do not collect personally identifiable information (Personal Data) about You. We store a
 	one-way <em>hash</em> of your IP address and browser and mobile device characteristics in order to
-	distinguish Your usage of the website from the usage of other users and store that hash along with
-	the Usage Data. This hash cannot be used to identify You personally.
+	distinguish Your usage of the website from the usage of other users in the Usage Data. This hash cannot
+	be used to identify You personally.
 </p>
 <h3>Usage Data</h3>
-<p>Usage Data is collected automatically when using the Service.</p>
 <p>
-	Usage Data may include information such as the pages of our Service that You visit, the queries
-	that You submit, the ratings that You provide, the time and date of Your visit, the time spent on
-	those pages, and other diagnostic data.
+	Usage Data is collected automatically when You use the Service. Usage Data may include information
+	such as
 </p>
+<ul>
+	<li>the pages of our Service that You visit,</li>
+	<li>the queries that You submit,</li>
+	<li>the ratings that You provide,</li>
+	<li>the time and date of Your visit,</li>
+	<li>the time spent on those pages, and</li>
+	<li>other diagnostic data.</li>
+</ul>
 <h3>Use of Usage Data</h3>
 <p>The Company may use Usage Data for the following purposes:</p>
 <ul>
