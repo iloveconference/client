@@ -148,7 +148,7 @@
 		<span
 			class="rating"
 			class:rated-down={data.answerRatedDown}
-			title="Answer Needs Work"
+			title="Needs Work"
 			on:keypress={rateDownAnswer}
 			on:click={rateDownAnswer}><IconThumbsDown /></span
 		>
@@ -172,7 +172,7 @@
 				<span
 					class="rating"
 					class:rated-down={result.ratedDown}
-					title="Less Relevant"
+					title="Not Relevant"
 					on:keypress={() => rateDownResult(result)}
 					on:click={() => rateDownResult(result)}><IconThumbsDown /></span
 				>

@@ -30,9 +30,18 @@
 			>?
 		</li>
 		<li>
-			<a href="/search?q=What+blessings+do+I+get+from+reading+general+conference+addresses"
-				>What blessings do I get from reading general conference addresses</a
+			<a href="/search?q=What+blessings+do+I+get+from+reading+general+conference+talks"
+				>What blessings do I get from reading general conference talks</a
 			>?
+		</li>
+		<li>
+			<a href="/search?q=where+did+we+come+from">Where did we come from</a>?
+		</li>
+		<li>
+			<a href="/search?q=why+are+we+here">Why are we here</a>?
+		</li>
+		<li>
+			<a href="/search?q=where+do+we+go+when+we+die%3F">Where do we go when we die</a>?
 		</li>
 	</ul>
 {:else}
