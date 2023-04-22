@@ -34,9 +34,11 @@
 <h6>Contributors</h6>
 <ul>
 	<li>
-		Dallan Quass (dallan@gmail.com) - If you would like a question-answering site like <em
-			>I Love Conference</em
-		> over your own company data, contact me! I am available for consulting or contract work.
+		Dallan Quass - If you would like a question-answering site like <em>I Love Conference</em>
+		over your own company data, contact me! I am available for consulting or contract work. Find me on
+		<a href="https://twitter.com/DallanQ">Twitter</a>,
+		<a href="https://www.linkedin.com/in/dallan-quass-7059/">LinkedIn</a>, or
+		<a href="https://medium.com/@dallanq">Medium</a>.
 	</li>
 </ul>
 <h6>Donors</h6>
