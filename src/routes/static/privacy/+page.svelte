@@ -3,7 +3,7 @@
 	src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"
 ></script>
 
-<h4 class="header"><a href="/">I Love Conference</a></h4>
+<h4 class="header"><a href="/">&lt; Home</a></h4>
 
 <h5 class="header">Privacy Policy</h5>
 

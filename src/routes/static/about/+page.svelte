@@ -1,4 +1,4 @@
-<h4 class="header"><a href="/">I Love Conference</a></h4>
+<h4 class="header"><a href="/">&lt; Home</a></h4>
 
 <h5 class="header">Why I Love Conference?</h5>
 
