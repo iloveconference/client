@@ -1,6 +1,6 @@
 # Requirements
 
-- npm, pnpm, or yarn
+- npm, pnpm, or yarn (pnpm is recommended)
 
 # Installation
 
