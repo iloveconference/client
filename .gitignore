@@ -5,6 +5,6 @@ node_modules
 /package
 .env
 .env.*
-.tool-versions
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
+npm-debug.log
