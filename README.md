@@ -12,7 +12,9 @@ Scripture Central Question-Answering Client
 
 Create a .env file with a SERVER_HOST variable that points to a running server instance, such as:
 
+```console
 SERVER_HOST=http://127.0.0.1:8000
+```
 
 then
 
