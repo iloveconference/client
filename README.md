@@ -1,3 +1,5 @@
+Scripture Central Question-Answering Client
+
 # Requirements
 
 - npm, pnpm, or yarn (pnpm is recommended)
