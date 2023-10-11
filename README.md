@@ -4,17 +4,14 @@
 
 # Installation
 
-`npm install` or `pnpm install`
+First, create a .env file with three lines: 
+- a SERVER_HOST variable that points to a running server instance, such as `SERVER_HOST=http://127.0.0.1:8000`
+- an UPSTASH_REDIS_REST_URL that points to an https://upstash.io redis instance
+- an UPSTASH_REDIS_REST_TOKEN that cointains an upstash token
 
-## Usage
+Then run `npm install` or `pnpm install`
 
-Create a .env file with a SERVER_HOST variable that points to a running server instance, such as:
-
-```console
-SERVER_HOST=http://127.0.0.1:8000
-```
-
-then
+## Running
 
 ```console
 npm run dev
