@@ -111,7 +111,7 @@
 	}
 </script>
 
-<h4 class="header"><a href="/">I Love Conference</a></h4>
+<h4 class="header"><a href="/">Scripture Central QA</a></h4>
 <form on:submit={clear}>
 	<div id="search-wrapper">
 		<input
