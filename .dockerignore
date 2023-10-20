@@ -13,5 +13,6 @@ node_modules
 .pretieriignore
 .prettierrc
 .vscode
+.idea
 Dockerfile
 README.md
