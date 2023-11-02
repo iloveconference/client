@@ -3,6 +3,9 @@
 	import IconThumbsDown from '~icons/uil/thumbs-down'
 	import IconThumbsUp from '~icons/uil/thumbs-up'
 	import type { PageData } from './$types'
+	import showdown from 'showdown'; // showdown imported
+	import sanitizeHtml from 'sanitize-html'; //sanitize-html imported
+
 
 	export let data: PageData
 
@@ -109,6 +112,27 @@
 		data.answerRatedUp = ratedUp
 		data.answerRatedDown = ratedDown
 	}
+
+
+// converting the markdown to html
+	function convertMarkdownToHtml(markdownContent: string) {
+    	let converter = new showdown.Converter();
+    	let html = converter.makeHtml(markdownContent);
+    	return html;
+	}
+
+	function sanitizeHtmlContent(htmlContent: string) {
+    	let sanitizedHTML = sanitizeHtml(htmlContent);
+    	return sanitizedHTML;
+	}
+
+	function convertAndSanitize(markdownContent: string) {
+		let htmlContent = convertMarkdownToHtml(markdownContent)
+		let sanitizedHTML = sanitizeHtmlContent(htmlContent);
+		return sanitizedHTML
+	}
+
+
 </script>
 
 <h4 class="header"><a href="/">Scripture Central QA</a></h4>
@@ -160,7 +184,7 @@
 		<div class="result">
 			<a href={result.url}>{result.title}</a><br />
 			<div class="author-date">{result.author} {result.month}/{result.year}</div>
-			<div>{result.text}</div>
+			<div>{@html convertAndSanitize(result.text)}</div> <!--sanitized the html before displaying-->
 			<div>
 				<span
 					class="rating"
