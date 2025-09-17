@@ -13,7 +13,7 @@
 	This is a Question-Answering site on
 	<a href="https://www.churchofjesuschrist.org/study/general-conference">General Conference talks</a
 	>
-	from 1980-2023 of The Church of Jesus Christ of Latter-day Saints. We intend to add features and improve
+	from 1980-2025 of The Church of Jesus Christ of Latter-day Saints. We intend to add features and improve
 	the results over time.
 </p>
 <form action="/search" on:submit={clear}>
