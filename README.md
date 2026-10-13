@@ -7,9 +7,8 @@ distribution at `/api/*`.
 
 ## Requirements
 
-- Node.js 22 (`.tool-versions` pins the exact version for asdf or mise). pnpm refuses to install
-  with any other Node version, since `.npmrc` sets `engine-strict=true` and `package.json` sets
-  `engines.node` to `22.x`.
+- Node.js 22. pnpm refuses to install with any other Node version, since `.npmrc` sets
+  `engine-strict=true` and `package.json` sets `engines.node` to `22.x`.
 - pnpm 8, the version in `packageManager` in `package.json`. Run `corepack enable` once to use it
   automatically, or run `npx pnpm@8.15.9 …`.
 
