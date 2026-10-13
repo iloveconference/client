@@ -9,6 +9,13 @@ export default defineConfig({
 			compiler: 'svelte'
 		})
 	],
+	server: {
+		// In production CloudFront sends /api/* to the search Lambda. Locally, run the server repo's
+		// FastAPI app on port 8000 (uvicorn server.main:app). `vite preview` uses this proxy too.
+		proxy: {
+			'/api': 'http://localhost:8000'
+		}
+	},
 	test: {
 		include: ['src/**/*.{test,spec}.{js,ts}']
 	}

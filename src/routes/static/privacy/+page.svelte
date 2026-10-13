@@ -1,13 +1,8 @@
-<script
-	data-cfasync="false"
-	src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"
-></script>
-
 <h4 class="header"><a href="/">&lt; Home</a></h4>
 
 <h5 class="header">Privacy Policy</h5>
 
-<p>Last updated: April 18, 2023</p>
+<p>Last updated: October 13, 2026</p>
 <p>
 	This Privacy Policy describes Our policies and procedures on the collection, use and disclosure of
 	Your information when You use the Service and tells You about Your privacy rights and how the law
@@ -47,7 +42,7 @@
 	<li>
 		<p>
 			<strong>Company</strong> (referred to as either &quot;the Company&quot;, &quot;We&quot;, &quot;Us&quot;
-			or &quot;Our&quot; in this Agreement) refers to geneFUN, Inc., PO Box 11, Vineyard, UT 84059.
+			or &quot;Our&quot; in this Agreement) refers to GeneFun, Inc., PO Box 11, Vineyard, UT 84059.
 		</p>
 	</li>
 	<li>
@@ -119,7 +114,6 @@
 <ul>
 	<li>the pages of our Service that You visit,</li>
 	<li>the queries that You submit,</li>
-	<li>the ratings that You provide,</li>
 	<li>the time and date of Your visit,</li>
 	<li>the time spent on those pages, and</li>
 	<li>other diagnostic data.</li>
@@ -182,5 +176,5 @@
 <h1>Contact Us</h1>
 <p>If you have any questions about this Privacy Policy, You can contact us:</p>
 <ul>
-	<li>By email: dallan@gmail.com</li>
+	<li>By email: dallan@genefun.com</li>
 </ul>

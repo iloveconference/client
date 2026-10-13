@@ -2,7 +2,7 @@
 
 <h5 class="header">Terms and Conditions</h5>
 
-<p>Last updated: April 13, 2023</p>
+<p>Last updated: October 13, 2026</p>
 <p>
 	Please read these terms and conditions carefully before using Our Service. This Terms and
 	Conditions document has been created with the help of the <a
@@ -33,7 +33,7 @@
 	<li>
 		<p>
 			<strong>Company</strong> (referred to as either &quot;the Company&quot;, &quot;We&quot;, &quot;Us&quot;
-			or &quot;Our&quot; in this Agreement) refers to geneFUN, Inc., PO Box 11, Vineyard, UT 84059.
+			or &quot;Our&quot; in this Agreement) refers to GeneFun, Inc., PO Box 11, Vineyard, UT 84059.
 		</p>
 	</li>
 	<li>
@@ -242,5 +242,5 @@
 <h1>Contact Us</h1>
 <p>If you have any questions about these Terms and Conditions, You can contact us:</p>
 <ul>
-	<li>By email: dallan@gmail.com</li>
+	<li>By email: dallan@genefun.com</li>
 </ul>

@@ -6,6 +6,8 @@ node_modules
 .env
 .env.*
 !.env.example
+# Local gstack tool state (git-ignored by its own .gitignore)
+/.gstack
 
 # Ignore files for PNPM, NPM and YARN
 pnpm-lock.yaml
