@@ -1,0 +1,100 @@
+name: CI
+
+on:
+  - push
+  - pull_request
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Set up pnpm (version from packageManager in package.json)
+        uses: pnpm/action-setup@v4
+
+      - name: Set up Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Check types
+        run: pnpm check
+
+      - name: Lint
+        run: pnpm lint
+
+      - name: Unit tests
+        run: pnpm test:unit --run
+
+      - name: Build
+        run: pnpm build
+
+  deploy:
+    name: Deploy
+    needs: build
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    # A hung step would otherwise hold the deploy-client concurrency group for 6 hours.
+    timeout-minutes: 15
+    permissions:
+      id-token: write
+      contents: read
+    concurrency: deploy-client
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Set up pnpm (version from packageManager in package.json)
+        uses: pnpm/action-setup@v4
+
+      - name: Set up Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      # Build before configuring AWS credentials, so install and build scripts never see them.
+      - name: Build
+        run: pnpm build
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ vars.AWS_CLIENT_DEPLOY_ROLE_ARN }}
+          aws-region: us-west-2
+
+      - name: Deploy to S3 and CloudFront
+        run: SKIP_BUILD=1 ./deploy.sh
+
+      - name: Smoke test
+        run: |
+          domain="$(aws cloudformation describe-stacks --stack-name ilc --region us-west-2 \
+            --query "Stacks[0].Outputs[?OutputKey=='DistributionDomainName'].OutputValue | [0]" \
+            --output text)"
+          if [[ -z "$domain" || "$domain" == None ]]; then
+            echo "Stack ilc has no DistributionDomainName output" >&2
+            exit 1
+          fi
+          for path in / /static/about /search; do
+            echo "GET https://$domain$path"
+            curl -fsS --retry 6 --retry-delay 10 --retry-all-errors --max-time 30 \
+              -o /dev/null "https://$domain$path"
+          done

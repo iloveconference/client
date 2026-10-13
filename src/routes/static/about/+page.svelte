@@ -18,15 +18,6 @@
 		the back-end is in Python. I'd love your help, even if you don't (yet) know machine learning.
 	</li>
 	<li>
-		<em>I Love Conference</em> costs money to host each month. If you are interested in helping to fund
-		the hosting costs, please contact me.
-	</li>
-	<li>
-		If you would like to see the search results improved, please click on the thumbs-up and
-		thumbs-down buttons under the computer-generated answer and each of the search results. Your
-		feedback will be used to help improve the search result ranking and query generation algorithms.
-	</li>
-	<li>
 		If you have ideas for new features, please let me know. I will add them to the feature backlog
 		on Github.
 	</li>
@@ -35,13 +26,7 @@
 <ul>
 	<li>
 		Dallan Quass - If you would like a question-answering site like <em>I Love Conference</em>
-		over your own company data, contact me! I am available for consulting or contract work. Find me on
-		<a href="https://twitter.com/DallanQ">Twitter</a>,
-		<a href="https://www.linkedin.com/in/dallan-quass-7059/">LinkedIn</a>, or
-		<a href="https://medium.com/@dallanq">Medium</a>.
+		over your own company data, contact me! I am available for consulting or contract work through
+		<a href="https://genefun.com">GeneFun</a>.
 	</li>
-</ul>
-<h6>Donors</h6>
-<ul>
-	<li>Donors welcome!</li>
 </ul>

@@ -1,3 +1,12 @@
 .header {
 	margin-top: 1rem;
 }
+
+/* Show the footer, which app.html hides until the site's styles have loaded. Skip Pico's link color
+   transition there, which would otherwise fade the links in from the browser's default blue. */
+html #footer-wrapper {
+	visibility: visible;
+}
+html #footer-wrapper a {
+	transition: none;
+}

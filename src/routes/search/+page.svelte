@@ -1,129 +1,87 @@
 <script lang="ts">
+	import { onDestroy } from 'svelte'
+	import { page } from '$app/stores'
 	import IconLoading from '~icons/eos-icons/bubble-loading'
-	import IconThumbsDown from '~icons/uil/thumbs-down'
-	import IconThumbsUp from '~icons/uil/thumbs-up'
-	import type { PageData } from './$types'
+	import { search, type SearchResult } from '$lib/search'
 
-	export let data: PageData
+	let q = ''
+	let answer: string | null = null
+	let results: SearchResult[] | null = null
+	let loading = false
+	let error: string | null = null
 
 	let searchRef: HTMLInputElement
+	let controller: AbortController | null = null
 
-	type SearchResult = {
-		ratedUp: boolean
-		ratedDown: boolean
-		id: number
+	// Search whenever q in the URL changes: a form submit, back/forward, or a shared link. This runs
+	// in the component, not in a load function, so hovering over a search link never starts a search.
+	$: urlQ = $page.url.searchParams.get('q') ?? ''
+	$: show(urlQ)
+
+	function show(query: string) {
+		q = query
+		run(query)
 	}
 
-	function clear() {
-		data.answer = null
-		data.results = null
-		data.loading = true
+	async function run(query: string) {
+		controller?.abort()
+		controller = null
+		answer = null
+		results = null
+		error = null
+		loading = false
+		if (!query.trim()) return
+
+		const current = new AbortController()
+		controller = current
+		loading = true
+		try {
+			const outcome = await search(query, current.signal)
+			if (current.signal.aborted) return
+			if (outcome.ok) {
+				answer = outcome.answer
+				results = outcome.results
+			} else {
+				error = outcome.error
+			}
+		} catch {
+			// Aborted by a newer search or by leaving the page.
+		} finally {
+			if (controller === current) {
+				controller = null
+				loading = false
+			}
+		}
+	}
+
+	function submit() {
+		// Any other q changes the URL, which runs show(). Submitting the q that's already in the URL
+		// doesn't, so retry here if its search failed. Don't search again while it's still running or
+		// after it worked: an aborted request still finishes (and costs) on the server.
+		if (q === urlQ && error) run(q)
 	}
 
 	function reset() {
-		data.q = ''
+		q = ''
 		searchRef.focus()
 	}
 
-	async function rate(resultId: number, score: number) {
-		await fetch('/api/rate', {
-			method: 'POST',
-			body: JSON.stringify({
-				session: data.session,
-				result: resultId,
-				score: score
-			})
-		})
-	}
-
-	function rateUp(ratedUp: boolean, ratedDown: boolean): [number, boolean, boolean] {
-		let score: number
-		if (ratedUp) {
-			score = -1
-			ratedUp = false
-		} else if (ratedDown) {
-			score = 2
-			ratedDown = false
-			ratedUp = true
-		} else {
-			score = 1
-			ratedUp = true
-		}
-		return [score, ratedUp, ratedDown]
-	}
-
-	function rateDown(ratedUp: boolean, ratedDown: boolean): [number, boolean, boolean] {
-		let score: number
-		if (ratedDown) {
-			score = 1
-			ratedDown = false
-		} else if (ratedUp) {
-			score = -2
-			ratedUp = false
-			ratedDown = true
-		} else {
-			score = -1
-			ratedDown = true
-		}
-		return [score, ratedUp, ratedDown]
-	}
-
-	async function rateUpResult(result: SearchResult) {
-		let score: number
-		let ratedUp: boolean
-		let ratedDown: boolean
-		;[score, ratedUp, ratedDown] = rateUp(result.ratedUp, result.ratedDown)
-		await rate(result.id, score)
-		result.ratedUp = ratedUp
-		result.ratedDown = ratedDown
-		data.results = data.results
-	}
-
-	async function rateDownResult(result: SearchResult) {
-		let score: number
-		let ratedUp: boolean
-		let ratedDown: boolean
-		;[score, ratedUp, ratedDown] = rateDown(result.ratedUp, result.ratedDown)
-		await rate(result.id, score)
-		result.ratedUp = ratedUp
-		result.ratedDown = ratedDown
-		data.results = data.results
-	}
-
-	async function rateUpAnswer() {
-		let score: number
-		let ratedUp: boolean
-		let ratedDown: boolean
-		;[score, ratedUp, ratedDown] = rateUp(data.answerRatedUp, data.answerRatedDown)
-		await rate(0, score)
-		data.answerRatedUp = ratedUp
-		data.answerRatedDown = ratedDown
-	}
-
-	async function rateDownAnswer() {
-		let score: number
-		let ratedUp: boolean
-		let ratedDown: boolean
-		;[score, ratedUp, ratedDown] = rateDown(data.answerRatedUp, data.answerRatedDown)
-		await rate(0, score)
-		data.answerRatedUp = ratedUp
-		data.answerRatedDown = ratedDown
-	}
+	onDestroy(() => controller?.abort())
 </script>
 
 <h4 class="header"><a href="/">I Love Conference</a></h4>
-<form on:submit={clear}>
+<form action="/search" on:submit={submit}>
 	<div id="search-wrapper">
 		<input
 			id="search"
 			type="search"
-			class={data.loading ? 'loading' : ''}
+			class={loading ? 'loading' : ''}
 			placeholder="Ask a question"
 			name="q"
 			bind:this={searchRef}
-			bind:value={data.q}
+			bind:value={q}
 		/>
-		{#if data.q}
+		{#if q}
 			<span tabindex="0" role="button" class="reset" on:keypress={reset} on:click={reset}
 				>&nbsp;</span
 			>
@@ -131,56 +89,27 @@
 	</div>
 </form>
 
-{#if data.answer}
+{#if error}
+	<p class="error" role="alert">{error}</p>
+{/if}
+{#if answer}
 	<h4>Computer-generated answer</h4>
 	<div class="answer-header">
 		Computer-generated answers may be incorrect. Please review the results below.
 	</div>
-	<div>{data.answer}</div>
-	<div>
-		<span
-			class="rating"
-			class:rated-up={data.answerRatedUp}
-			title="Good Answer"
-			on:keypress={rateUpAnswer}
-			on:click={rateUpAnswer}><IconThumbsUp /></span
-		>
-		<span
-			class="rating"
-			class:rated-down={data.answerRatedDown}
-			title="Needs Work"
-			on:keypress={rateDownAnswer}
-			on:click={rateDownAnswer}><IconThumbsDown /></span
-		>
-	</div>
+	<div>{answer}</div>
 {/if}
-{#if data.results}
+{#if results}
 	<h4>Results</h4>
-	{#each data.results as result}
+	{#each results as result}
 		<div class="result">
 			<a href={result.url}>{result.title}</a><br />
 			<div class="author-date">{result.author} {result.month}/{result.year}</div>
 			<div>{result.text}</div>
-			<div>
-				<span
-					class="rating"
-					class:rated-up={result.ratedUp}
-					title="Relevant"
-					on:keypress={() => rateUpResult(result)}
-					on:click={() => rateUpResult(result)}><IconThumbsUp /></span
-				>
-				<span
-					class="rating"
-					class:rated-down={result.ratedDown}
-					title="Not Relevant"
-					on:keypress={() => rateDownResult(result)}
-					on:click={() => rateDownResult(result)}><IconThumbsDown /></span
-				>
-			</div>
 		</div>
 	{/each}
 {/if}
-{#if data.loading}
+{#if loading}
 	<p>
 		<IconLoading /> &nbsp; Please wait
 	</p>
@@ -226,13 +155,7 @@
 		opacity: 0.5;
 	}
 
-	.rating {
-		cursor: pointer;
-	}
-	.rated-up {
-		color: rgb(0, 224, 0);
-	}
-	.rated-down {
-		color: red;
+	.error {
+		color: var(--del-color);
 	}
 </style>
