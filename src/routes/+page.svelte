@@ -1,6 +1,8 @@
 <script lang="ts">
 	import IconLoading from '~icons/eos-icons/bubble-loading'
 
+	import { EARLIEST_CONFERENCE_YEAR, LATEST_CONFERENCE_YEAR } from '$lib/coverage'
+
 	let loading = false
 
 	function clear() {
@@ -13,8 +15,8 @@
 	This is a Question-Answering site on
 	<a href="https://www.churchofjesuschrist.org/study/general-conference">General Conference talks</a
 	>
-	from 1980-2025 of The Church of Jesus Christ of Latter-day Saints. We intend to add features and improve
-	the results over time.
+	from {EARLIEST_CONFERENCE_YEAR}-{LATEST_CONFERENCE_YEAR} of The Church of Jesus Christ of Latter-day
+	Saints. We intend to add features and improve the results over time.
 </p>
 <form action="/search" on:submit={clear}>
 	<input type="search" class={loading ? 'loading' : ''} placeholder="Ask a question" name="q" />
