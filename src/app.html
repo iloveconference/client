@@ -7,10 +7,11 @@
 		<link rel="icon" type="image/png" sizes="16x16" href="%sveltekit.assets%/favicon-16x16.png" />
 		<link rel="icon" type="image/png" sizes="48x48" href="%sveltekit.assets%/favicon-48x48.png" />
 		<meta name="viewport" content="width=device-width" />
-		<meta name="description" content="Search general conference talks of the Church of Jesus Christ of Latter-day Saints"/>
-		<title>
-			I Love Conference
-		</title>
+		<meta
+			name="description"
+			content="Search general conference talks of the Church of Jesus Christ of Latter-day Saints"
+		/>
+		<title>I Love Conference</title>
 		<script
 			async
 			src="https://analytics.umami.is/script.js"
@@ -25,10 +26,19 @@
 			</div>
 			<footer id="footer-wrapper">
 				<p>
+					I Love Conference is built by <a href="https://genefun.com">GeneFun</a>, an AI consulting
+					firm that builds tools like this for other organizations.
+				</p>
+				<p>
+					Questions? Email Dallan Quass at
+					<a href="mailto:dallan@genefun.com">dallan@genefun.com</a>.
+				</p>
+				<p class="fine">
 					Not affiliated with the Church of Jesus Christ of Latter-day Saints
 					<a class="pad" href="/static/about">About</a>
 					<a class="pad" href="/static/terms">Terms</a>
 					<a class="pad" href="/static/privacy">Privacy</a>
+					<span class="pad">© 2026 GeneFun, Inc.</span>
 				</p>
 			</footer>
 		</div>
@@ -42,13 +52,28 @@
 		#footer-wrapper {
 			margin-top: auto;
 			padding: 1rem 1rem 0 1rem;
+			text-align: center;
+			/* app.css shows the footer. /search and the 404 page are rendered in the browser and load
+			   their stylesheets with their JS, so this keeps the footer from flashing unstyled first. */
+			visibility: hidden;
 		}
 		#footer-wrapper p {
 			margin-top: 0;
 			margin-bottom: 0.5rem;
 		}
+		/* The GeneFun credit and the email address: bold and underlined, like book2tree's footer. */
+		#footer-wrapper p:not(.fine) a {
+			font-weight: bold;
+			text-decoration: underline;
+		}
+		#footer-wrapper .fine {
+			margin-top: 1rem;
+			color: var(--muted-color);
+			font-size: 0.8em;
+		}
 		#footer-wrapper .pad {
 			padding-left: 25px;
+			white-space: nowrap;
 		}
 	</style>
 </html>
