@@ -7,8 +7,9 @@ distribution at `/api/*`.
 
 ## Requirements
 
-- Node.js 22. pnpm refuses to install with any other Node version, since `.npmrc` sets
-  `engine-strict=true` and `package.json` sets `engines.node` to `22.x`.
+- Node.js 22 or newer. `.npmrc` sets `engine-strict=true` and `package.json` sets
+  `engines.node` to `>=22`, so pnpm refuses anything older. CI and the deploy build on
+  22; newer is fine locally.
 - pnpm 8, the version in `packageManager` in `package.json`. Run `corepack enable` once to use it
   automatically, or run `npx pnpm@8.15.9 …`.
 
